@@ -9,6 +9,14 @@
     <div style="margin-left: 40%">
         <p style="font-size:52px">Vittke the Boss</p>
     </div>
+
+    </div style="font-size:18px; margin-left: 18%; position: absolute; text-align: center">
+        <h2>Category</h2>
+        {% for i in category %}
+        <br><a href="{% url 'categories' category_pk=i.pk %}">{{i}}</a></br>
+        {% endfor %}
+    </div>
+
     <div style="margin-left: 50px; margin-top: 40px; margin-bottom: 40px; ">
         <a style="font-size:25px; color: black; border: 1px solid; border-radius: 20px; padding: 10px" 
             href="{% url 'post_new' %}">
@@ -34,5 +42,10 @@
         </div>
     </div>
     {% endfor %}
+
+    <div style="margin-top: 50px; margin-left: 25px">
+        <h3>Number of posts</h3>
+        {{counter}}
+    </div>
 </body>
 </html>

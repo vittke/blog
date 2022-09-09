@@ -1,14 +1,23 @@
 from datetime import datetime
+from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Category
 from blog.forms import PostForm
 
 
 def post_list(request):
     posts = Post.objects.all().filter(published=True)
-    context = {'items': posts}
+    category = Category.objects.all()
+    counter = posts.count()
+    context = {'items': posts, 'category': category, 'counter': counter}
     return render(request, 'blog/post_list.html', context)
+
+def categories(request, category_pk):
+    posts = Post.objects.filter(category=category_pk)
+    catogory = Category.objects.all()
+    counter = posts.count()
+    return render(request, 'blog/post_list.html', {'items': posts, 'category': catogory, 'counter': counter})
 
 def post_draft(request):
     posts = Post.objects.all().filter(published=False)
